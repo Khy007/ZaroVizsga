@@ -11,6 +11,7 @@ public class Stopper implements ActionListener{
 	JButton startGomb = new JButton("START");
 	JButton resetGomb = new JButton("RESET");
 	JLabel timeLabel = new JLabel();
+	JLabel cimke = new JLabel();
 	
 	int elteltIdo = 0;
 	int ezredMasodperc = 0;
@@ -52,6 +53,9 @@ public class Stopper implements ActionListener{
 	String masodperc_string = String.format("%02d", masodperc);
 	String perc_string = String.format("%02d", perc);
 	String ora_string = String.format("%02d", ora);
+	String oraCimke = "Óra";
+	String percCimke = "Perc";
+	String mpercCimke = "Másodperc";
  
 	Timer timer = new Timer(1000, new ActionListener() {
   
@@ -75,7 +79,7 @@ public class Stopper implements ActionListener{
 	public void stopperGUI(){
   
 		  timeLabel.setText(ora_string+":"+perc_string+":"+masodperc_string);
-		  timeLabel.setBounds(50,100,300,100);
+		  timeLabel.setBounds(50,30,300,100);
 		  timeLabel.setFont(new Font("Verdana",Font.PLAIN,35));
 		  timeLabel.setForeground(Color.RED);
 		  timeLabel.setBackground(Color.CYAN);
@@ -83,12 +87,18 @@ public class Stopper implements ActionListener{
 		  timeLabel.setOpaque(true);
 		  timeLabel.setHorizontalAlignment(JTextField.CENTER);
 		  
-		  startGomb.setBounds(100,200,100,50);
+		  cimke.setText(oraCimke +" : "+ percCimke+" : " + mpercCimke);
+		  cimke.setBounds(50,5,300,20);
+		  cimke.setFont(new Font("Verdana",Font.PLAIN,15));
+		 
+		  cimke.setHorizontalAlignment(JTextField.CENTER);
+		  
+		  startGomb.setBounds(100,140,100,50);
 		  startGomb.setFont(new Font("Arial",Font.PLAIN,20));
 		  startGomb.setFocusable(false);
 		  startGomb.addActionListener(this);
 		  
-		  resetGomb.setBounds(200,200,100,50);
+		  resetGomb.setBounds(200,140,100,50);
 		  resetGomb.setFont(new Font("Arial",Font.PLAIN,20));
 		  resetGomb.setFocusable(false);
 		  resetGomb.addActionListener(this);
@@ -96,6 +106,7 @@ public class Stopper implements ActionListener{
 		  frame.add(startGomb);
 		  frame.add(resetGomb);
 		  frame.add(timeLabel);
+		  frame.add(cimke);
 		  
 		  frame.setTitle("Bazsi Pallas STOPPER");
 		  frame.setLocationRelativeTo(null);
@@ -107,7 +118,7 @@ public class Stopper implements ActionListener{
  
  @Override
  public void actionPerformed(ActionEvent e) {
-  
+  try {
 	  if(e.getSource()==startGomb) {
 	   
 		   if(!futAzOra) {
@@ -128,6 +139,9 @@ public class Stopper implements ActionListener{
 		   startGomb.setText("START");
 		   reset();
 	  }
+  }catch (Exception error) {
+	  frame.setTitle("ERROR ERROR ERROR" + error);
+  }
 	  
  }
  
